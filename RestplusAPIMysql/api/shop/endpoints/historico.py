@@ -94,6 +94,37 @@ class historicoCidadeIdAno(Resource):
 
         return historico
 
+@namespace.route('idIndicador/<string:idindicador>')
+@api.response(404, 'There is no historico with this Name yet.')
+class historicoIndicador(Resource):
+
+    @api.expect(pagination)
+    @api.marshal_with(page_with_historicos)
+    def get(self, idindicador):
+        args = pagination.parse_args(request)
+        page = args.get('page', 1)
+        items_per_page = args.get('items_per_page', 10)
+
+        historico = Historico.query.filter_by(idindicador = idindicador).paginate(page, items_per_page, error_out=False)
+
+        return historico
+
+@namespace.route('idIndicadorAno/<string:idindicador>/<int:anoPesquisa>')
+@api.response(404, 'There is no historico with this Name yet.')
+class historicoIndicadorAno(Resource):
+
+    @api.expect(pagination)
+    @api.marshal_with(page_with_historicos)
+    def get(self, idindicador,anoPesquisa):
+
+        args = pagination.parse_args(request)
+        page = args.get('page', 1)
+        items_per_page = args.get('items_per_page', 10)
+
+        historico = Historico.query.filter_by(idindicador = idindicador,ano = anoPesquisa).paginate(page, items_per_page, error_out=False)
+
+        return historico
+
 '''
 @namespace.route('id/<int:id>')
 @api.response(404, 'There is no cidade with this ID yet.')
