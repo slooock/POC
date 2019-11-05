@@ -23,7 +23,7 @@ class Offer(Resource):
         historicos = Historico.query.paginate(page, items_per_page, error_out=False)
         return historicos        
 
-@namespace.route('Cidade/<string:nomeCidade>')
+@namespace.route('NomeCidade/<string:nomeCidade>')
 @api.response(404, 'There is no historico with this Name yet.')
 class historicoCidadeNome(Resource):
 
@@ -35,6 +35,25 @@ class historicoCidadeNome(Resource):
         items_per_page = args.get('items_per_page', 10)
 
         cidade = Cidade.query.filter_by(nome = nomeCidade).first()
+
+        historico = Historico.query.filter_by(idcidade = cidade.idcidade).paginate(page, items_per_page, error_out=False)
+
+        return historico
+
+
+@namespace.route('idCidade/<string:idCidade>')
+@api.response(404, 'There is no historico with this Name yet.')
+class historicoCidadeId(Resource):
+
+    @api.expect(pagination)
+    @api.marshal_with(page_with_historicos)
+    def get(self, idCidade):
+        args = pagination.parse_args(request)
+        page = args.get('page', 1)
+        items_per_page = args.get('items_per_page', 10)
+
+        
+        cidade = Cidade.query.filter_by(idcidade = idCidade).first()
 
         historico = Historico.query.filter_by(idcidade = cidade.idcidade).paginate(page, items_per_page, error_out=False)
 
