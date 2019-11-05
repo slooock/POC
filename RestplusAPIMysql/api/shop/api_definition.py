@@ -26,7 +26,7 @@ historico = api.model('Historico', {
     'idcidade': fields.Integer(required=True, description='Indicador da cidade'),
     'idindicador': fields.Integer(required=True, description='Indicador do indicador de pesquisa'),
     'ano': fields.Integer(required=True, description='Ano da pesquisa'),
-    'nome': fields.String(required=True, description='Valor da pesquisa'),
+    'valor': fields.String(required=True, description='Valor da pesquisa'),
 })
 
 
