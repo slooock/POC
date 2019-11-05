@@ -32,9 +32,19 @@ class Offer(Resource):
 @namespace.route('id/<int:id>')
 @api.response(404, 'There is no cidade with this ID yet.')
 class CidadeItem(Resource):
-	@api.marshal_with(cidade)
-	def get(self, id):
-		return Cidade.query.filter_by(idcidade = id).first()
+    @api.marshal_with(cidade)
+    def get(self, id):
+        return Cidade.query.filter_by(idcidade = id).first()
+
+@namespace.route('nomeCidade/<string:nomeCidade>')
+@api.response(404, 'There is no cidade with this Name yet.')
+class CidadeItemNome(Resource):
+
+    @api.marshal_with(cidade)
+    def get(self, nomeCidade):
+        print(Cidade.query.filter_by(nome = nomeCidade))
+        return Cidade.query.filter_by(nome = nomeCidade).all()
+        
 	
 
 
