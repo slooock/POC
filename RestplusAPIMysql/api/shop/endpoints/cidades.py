@@ -21,7 +21,6 @@ class Offer(Resource):
         page = args.get('page', 1)
         items_per_page = args.get('items_per_page', 10)
         cidades = Cidade.query.paginate(page, items_per_page, error_out=False)
-        print(cidades)
         return cidades
 
     @api.expect(cidade)
@@ -42,8 +41,10 @@ class CidadeItemNome(Resource):
 
     @api.marshal_with(cidade)
     def get(self, nomeCidade):
-        print(Cidade.query.filter_by(nome = nomeCidade))
         return Cidade.query.filter_by(nome = nomeCidade).all()
+
+        
+
         
 	
 

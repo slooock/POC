@@ -20,7 +20,8 @@ class Offer(Resource):
         page = args.get('page', 1)
         items_per_page = args.get('items_per_page', 10)
         historicos = Historico.query.paginate(page, items_per_page, error_out=False)
-        return historicos
+        print(historicos)
+        return historicos        
 
 '''
 @namespace.route('id/<int:id>')
